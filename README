@@ -1,0 +1,243 @@
+# 📋 Gerenciador de Tarefas
+
+> API REST para gerenciamento de tarefas desenvolvida em Node.js puro, sem frameworks externos.
+
+## 🚀 Sobre o Projeto
+
+Uma API REST completa para gerenciamento de tarefas, desenvolvida do zero usando apenas Node.js puro e módulos nativos. O projeto demonstra conceitos fundamentais como:
+
+- **Streams** para processamento de arquivos CSV
+- **File System** como banco de dados em JSON
+- **Middlewares** customizados para diferentes tipos de conteúdo
+- **Formatação de datas** em português brasileiro
+- **Arquitetura limpa** com separação de responsabilidades
+
+## ✨ Funcionalidades
+
+- ✅ **Criar tarefa** - Adicionar nova tarefa
+- 📋 **Listar tarefas** - Visualizar todas as tarefas
+- 🔍 **Buscar tarefas** - Filtrar por título ou descrição
+- ✏️ **Editar tarefa** - Atualizar título e descrição
+- ✅ **Marcar/Desmarcar** - Toggle de conclusão de tarefa
+- 🗑️ **Deletar tarefa** - Remover tarefa permanentemente
+- 📊 **Importar CSV** - Criar múltiplas tarefas via arquivo CSV
+
+## 🛠️ Tecnologias
+
+- **[Node.js](https://nodejs.org/)** - Runtime JavaScript
+- **ES Modules** - Sistema de módulos moderno
+- **File System** - Banco de dados em arquivo JSON
+- **Streams** - Processamento de arquivos CSV
+- **UUID** - Geração de IDs únicos
+
+## 📁 Estrutura do Projeto
+
+```
+src/
+├── middlewares/
+│   ├── json.js                  # Processamento de requisições JSON
+│   └── csv.js                   # Processamento de arquivos CSV
+├── mappers/
+│   └── task-response-mapper.js  # Formatação de respostas
+├── utils/
+│   ├── build-route-path.js      # Construção de rotas dinâmicas
+│   ├── extract-query-params.js  # Extração de query parameters
+│   ├── format-date.js           # Formatação de datas
+│   └── csv-parser.js            # Parser de arquivos CSV
+├── database.js                  # Gerenciamento do banco de dados
+├── routes.js                    # Definição das rotas da API
+└── server.js                    # Servidor HTTP principal
+```
+
+## 🚀 Como Executar
+
+### Pré-requisitos
+
+- Node.js 20 ou superior
+- npm ou yarn
+
+### Instalação
+
+1. **Clone o repositório:**
+```bash
+git clone https://github.com/Evelinymuniz/gerenciador-de-tarefas.git
+cd gerenciador-de-tarefas
+```
+
+2. **Execute o servidor:**
+```bash
+npm run dev
+```
+
+3. **Acesse a API:**
+```
+http://localhost:3333
+```
+
+## 📋 Endpoints da API
+
+### 📋 Listar Tarefas
+```http
+GET /tasks
+```
+
+**Query Parameters:**
+- `search` (opcional) - Buscar por título ou descrição
+
+**Exemplo:**
+```bash
+GET /tasks?search=estudar
+```
+
+### ➕ Criar Tarefa
+```http
+POST /tasks
+Content-Type: application/json
+
+{
+  "title": "Estudar Node.js",
+  "description": "Revisar conceitos de APIs REST"
+}
+```
+
+### 📤 Importar Tarefas (CSV)
+```http
+POST /tasks/import
+Content-Type: text/csv
+
+title,description
+Estudar Node.js,Revisar conceitos de APIs REST
+Fazer exercícios,Praticar desenvolvimento
+```
+
+### ✏️ Editar Tarefa
+```http
+PUT /tasks/:id
+Content-Type: application/json
+
+{
+  "title": "Novo título",
+  "description": "Nova descrição"
+}
+```
+
+### ✅ Marcar/Desmarcar como Concluída
+```http
+PATCH /tasks/:id/complete
+```
+*Toggle automático: se não concluída → marca, se concluída → desmarca*
+
+### 🗑️ Deletar Tarefa
+```http
+DELETE /tasks/:id
+```
+
+## 📊 Exemplos de Resposta
+
+### ✅ Tarefa Criada
+```json
+{
+  "id": "550e8400-e29b-41d4-a716-446655440000",
+  "title": "Estudar Node.js",
+  "description": "Revisar conceitos de APIs REST",
+  "completed_at": null,
+  "created_at": "05/08/2025, 14:30",
+  "updated_at": "05/08/2025, 14:30"
+}
+```
+
+### 📋 Lista de Tarefas
+```json
+[
+  {
+    "id": "550e8400-e29b-41d4-a716-446655440000",
+    "title": "Estudar Node.js",
+    "description": "Revisar conceitos de APIs REST",
+    "completed_at": "05/08/2025, 15:45",
+    "created_at": "05/08/2025, 14:30",
+    "updated_at": "05/08/2025, 15:45"
+  }
+]
+```
+
+### 📊 Importação CSV
+```json
+{
+  "success": true,
+  "message": "🎉 3 tarefas importadas com sucesso!",
+  "count": 3,
+  "imported_at": "05/08/2025, 16:20",
+  "tasks": [...]
+}
+```
+
+## 🧪 Testando a API
+
+### Com cURL
+```bash
+# Listar tarefas
+curl http://localhost:3333/tasks
+
+# Criar tarefa
+curl -X POST http://localhost:3333/tasks \
+  -H "Content-Type: application/json" \
+  -d '{"title":"Nova tarefa","description":"Descrição da tarefa"}'
+
+# Marcar como concluída
+curl -X PATCH http://localhost:3333/tasks/ID_DA_TAREFA/complete
+```
+
+### Com Postman
+1. Importe a collection disponível em `/docs/postman-collection.json`
+2. Configure a variável `baseUrl` como `http://localhost:3333`
+3. Execute os requests disponíveis
+
+## 💡 Características Técnicas
+
+### 🔄 Streams e Performance
+- Processamento de CSV linha por linha usando Streams
+- Baixo consumo de memória para arquivos grandes
+- Operações assíncronas para melhor performance
+
+### 🗄️ Banco de Dados
+- Persistência em arquivo JSON
+- Operações CRUD completas
+- Backup automático a cada modificação
+
+### 🎯 Middlewares
+- Processamento automático de JSON
+- Suporte nativo a CSV
+- Validações customizadas
+
+### 📅 Formatação
+- Datas em formato brasileiro (DD/MM/AAAA, HH:mm)
+- Timestamps automáticos
+- Controle de criação e atualização
+
+## 🤝 Contribuindo
+
+1. Faça um fork do projeto
+2. Crie uma branch para sua feature (`git checkout -b feature/MinhaFeature`)
+3. Commit suas mudanças (`git commit -m 'Adiciona nova feature'`)
+4. Push para a branch (`git push origin feature/MinhaFeature`)
+5. Abra um Pull Request
+
+## 📝 Licença
+
+Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+
+## 👩‍💻 Desenvolvedora
+
+**Eveliny Muniz**
+
+- GitHub: [@Evelinymuniz](https://github.com/Evelinymuniz)
+- LinkedIn: [Seu LinkedIn]
+- Email: [seu.email@exemplo.com]
+
+---
+
+⭐ Se este projeto te ajudou, considere dar uma estrela!
+
+---
+
+*Desenvolvido com ❤️ e muito ☕ em Node.js puro*

@@ -1,0 +1,26 @@
+{
+  "name": "gerenciador-de-tarefas",
+  "version": "1.0.0",
+  "description": "API REST para gerenciamento de tarefas em Node.js puro",
+  "main": "src/server.js",
+  "type": "module",
+  "scripts": {
+    "dev": "node --watch src/server.js",
+    "start": "node src/server.js"
+  },
+  "keywords": [
+    "nodejs",
+    "api",
+    "rest",
+    "tasks",
+    "gerenciador",
+    "csv",
+    "streams"
+  ],
+  "author": "Eveliny Muniz",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Evelinymuniz/gerenciador-de-tarefas"
+  }
+}
