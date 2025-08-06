@@ -1,87 +1,144 @@
-📋 Gerenciador de Tarefas
+# 📋 Gerenciador de Tarefas
+
 API RESTful desenvolvida com Node.js puro e módulos nativos — sem frameworks.
 
-🚀 Visão Geral
-Projeto educativo que implementa uma API completa para gerenciamento de tarefas, usando:
+![Node.js](https://img.shields.io/badge/Node.js-20%2B-green?style=for-the-badge&logo=nodedotjs)
+![ES Modules](https://img.shields.io/badge/ES%20Modules-Enabled-blue?style=for-the-badge)
+![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)
 
-📦 File System como banco de dados (JSON)
 
-📤 Streams para importação via CSV
 
-🧩 Middlewares customizados
 
-🧹 Arquitetura limpa e modular
+## 🚀 Visão Geral
 
-✨ Funcionalidades
-✅ Criar, editar, listar e deletar tarefas
+Este projeto educacional implementa uma API RESTful completa para gerenciamento de tarefas, construída do zero utilizando Node.js puro e seus módulos nativos. O objetivo principal é demonstrar a criação de uma API robusta e escalável sem a dependência de frameworks externos, focando em princípios de arquitetura limpa e modularidade.
 
-🔍 Buscar por título ou descrição
+### ✨ Funcionalidades Principais
 
-✅ Marcar ou desmarcar como concluída
+- **Gerenciamento CRUD de Tarefas**: Crie, liste, edite e delete tarefas de forma eficiente.
+- **Busca Flexível**: Encontre tarefas por título ou descrição, facilitando a localização de informações.
+- **Controle de Status**: Marque ou desmarque tarefas como concluídas, permitindo um acompanhamento claro do progresso.
+- **Importação em Massa**: Importe múltiplas tarefas de uma só vez através de arquivos CSV, otimizando o processo de adição de dados.
+- **Persistência de Dados**: Utiliza o sistema de arquivos (File System) como um banco de dados baseado em JSON, garantindo a persistência dos dados de forma simples e eficaz.
+- **Processamento de Streams**: Implementa streams para lidar com a importação de CSV, otimizando o uso de memória e processamento para grandes volumes de dados.
+- **Middlewares Customizados**: Utiliza middlewares personalizados para tratamento de requisições e respostas, garantindo flexibilidade e controle sobre o fluxo da aplicação.
+- **Arquitetura Limpa**: O projeto segue uma arquitetura limpa e modular, facilitando a manutenção, escalabilidade e compreensão do código.
 
-📤 Importar múltiplas tarefas via CSV
 
-🛠️ Tecnologias
-Node.js 20+
 
-ES Modules
 
-fs (File System)
+## 🛠️ Tecnologias Utilizadas
 
-stream
+Este projeto foi desenvolvido utilizando as seguintes tecnologias e conceitos:
 
-uuid
+- **Node.js 20+**: A plataforma de runtime JavaScript que permite a execução de código JavaScript no lado do servidor.
+- **ES Modules**: Utilização do sistema de módulos nativo do JavaScript (import/export) para uma estrutura de código mais moderna e organizada.
+- **`fs` (File System)**: Módulo nativo do Node.js para interagir com o sistema de arquivos, utilizado aqui para persistir os dados em formato JSON.
+- **`stream`**: Módulo nativo do Node.js para lidar com fluxos de dados, essencial para a importação eficiente de arquivos CSV.
+- **`uuid`**: Biblioteca para geração de identificadores únicos universais (UUIDs), garantindo que cada tarefa tenha um ID exclusivo.
 
-📁 Estrutura do Projeto
-bash
-Copiar
-Editar
+
+
+
+## 📁 Estrutura do Projeto
+
+A estrutura do projeto foi pensada para ser modular e de fácil compreensão, separando as responsabilidades em diretórios específicos:
+
+```bash
 src/
-├── middlewares/       # JSON & CSV
-├── mappers/           # Formatação de resposta
-├── utils/             # Helpers: rotas, datas, CSV, query
-├── database.js
-├── routes.js
-└── server.js
-▶️ Executando o Projeto
-bash
-Copiar
-Editar
-git clone https://github.com/Evelinymuniz/gerenciador-de-tarefas.git
-cd gerenciador-de-tarefas
-npm install
-npm run dev
-Acesse: http://localhost:3333
+├── middlewares/       # Funções intermediárias para processamento de requisições (JSON & CSV)
+├── mappers/           # Lógica para formatação de dados de resposta
+├── utils/             # Funções utilitárias e helpers (rotas, datas, CSV, query params)
+├── database.js        # Gerenciamento da persistência de dados (File System JSON)
+├── routes.js          # Definição das rotas da API e seus respectivos handlers
+└── server.js          # Configuração e inicialização do servidor HTTP
+```
 
-📌 Endpoints
-Método	Rota	Descrição
-GET	/tasks	Listar tarefas (com busca)
-POST	/tasks	Criar nova tarefa
-PUT	/tasks/:id	Atualizar título e descrição
-PATCH	/tasks/:id/complete	Marcar/Desmarcar como concluída
-DELETE	/tasks/:id	Deletar tarefa
-POST	/tasks/import	Importar CSV
 
-Exemplo de Criação
-json
-Copiar
-Editar
+
+
+## ▶️ Executando o Projeto
+
+Para configurar e executar o projeto em sua máquina local, siga os passos abaixo:
+
+1. **Clone o repositório:**
+   ```bash
+   git clone https://github.com/Evelinymuniz/gerenciador-de-tarefas.git
+   ```
+
+2. **Navegue até o diretório do projeto:**
+   ```bash
+   cd gerenciador-de-tarefas
+   ```
+
+3. **Instale as dependências:**
+   ```bash
+   npm install
+   ```
+
+4. **Inicie o servidor em modo de desenvolvimento:**
+   ```bash
+   npm run dev
+   ```
+
+Após iniciar o servidor, a API estará acessível em: `http://localhost:3333`
+
+
+
+
+## 📌 Endpoints da API
+
+A API disponibiliza os seguintes endpoints para interação com as tarefas:
+
+| Método | Rota             | Descrição                               |
+|--------|------------------|-----------------------------------------|
+| `GET`  | `/tasks`         | Lista todas as tarefas (com busca opcional por `title` ou `description` via query params) |
+| `POST` | `/tasks`         | Cria uma nova tarefa                    |
+| `PUT`  | `/tasks/:id`     | Atualiza o `title` e `description` de uma tarefa específica |
+| `PATCH`| `/tasks/:id/complete` | Marca ou desmarca uma tarefa como concluída |
+| `DELETE`| `/tasks/:id`     | Deleta uma tarefa específica            |
+| `POST` | `/tasks/import`  | Importa múltiplas tarefas via arquivo CSV |
+
+
+
+
+## 📝 Exemplos de Uso
+
+### Exemplo de Criação de Tarefa
+
+Para criar uma nova tarefa, envie uma requisição `POST` para o endpoint `/tasks` com um corpo JSON contendo `title` e `description`:
+
+```json
 POST /tasks
+Content-Type: application/json
+
 {
   "title": "Estudar Node.js",
   "description": "Revisar conceitos de APIs REST"
 }
-Importar via CSV
-csv
-Copiar
-Editar
+```
+
+
+
+
+### Exemplo de Importação via CSV
+
+Para importar múltiplas tarefas de uma vez, envie um arquivo CSV para o endpoint `/tasks/import`. O CSV deve conter as colunas `title` e `description`:
+
+```csv
 title,description
 Estudar Node.js,Revisar conceitos de APIs REST
 Fazer exercícios,Praticar desenvolvimento
-📊 Exemplo de Resposta
-json
-Copiar
-Editar
+```
+
+
+
+
+## 📊 Exemplo de Resposta
+
+Ao listar ou criar uma tarefa, a API retornará um objeto JSON com a seguinte estrutura:
+
+```json
 {
   "id": "uuid",
   "title": "Estudar Node.js",
@@ -90,25 +147,67 @@ Editar
   "created_at": "05/08/2025, 14:30",
   "updated_at": "05/08/2025, 14:30"
 }
-🧪 Teste com cURL
-bash
-Copiar
-Editar
-curl http://localhost:3333/tasks
+```
 
+
+
+
+## 🧪 Teste com cURL
+
+Você pode testar os endpoints da API diretamente do seu terminal utilizando o `cURL`:
+
+### Listar todas as tarefas:
+```bash
+curl http://localhost:3333/tasks
+```
+
+### Criar uma nova tarefa:
+```bash
 curl -X POST http://localhost:3333/tasks \
   -H "Content-Type: application/json" \
-  -d '{"title":"Nova tarefa","description":"Descrição"}'
-🤝 Contribuição
-Fork e crie uma branch (feature/MinhaFuncionalidade)
+  -d '{"title":"Nova tarefa","description":"Descrição da nova tarefa"}'
+```
 
-Commit e push das mudanças
+### Marcar uma tarefa como concluída (substitua `:id` pelo ID da tarefa):
+```bash
+curl -X PATCH http://localhost:3333/tasks/SEU_ID_DA_TAREFA/complete
+```
 
-Abra um Pull Request 🚀
+### Deletar uma tarefa (substitua `:id` pelo ID da tarefa):
+```bash
+curl -X DELETE http://localhost:3333/tasks/SEU_ID_DA_TAREFA
+```
 
-👩‍💻 Desenvolvedora
-Eveliny Muniz
-📎 GitHub | 📧 seu.email@exemplo.com | 💼 LinkedIn
 
-⭐ Se curtir, deixe uma estrela no projeto!
 
+
+## 🤝 Contribuição
+
+Contribuições são muito bem-vindas! Se você deseja aprimorar este projeto, siga os passos abaixo:
+
+1. Faça um **fork** deste repositório.
+2. Crie uma nova **branch** para sua funcionalidade ou correção de bug (`git checkout -b feature/minha-funcionalidade` ou `bugfix/correcao-de-bug`).
+3. Faça suas alterações e **commit** suas mudanças (`git commit -m 'feat: Adiciona nova funcionalidade'`).
+4. Faça o **push** da sua branch para o GitHub (`git push origin feature/minha-funcionalidade`).
+5. Abra um **Pull Request** detalhando suas alterações e o problema que elas resolvem ou a funcionalidade que adicionam.
+
+Certifique-se de que seu código siga as boas práticas e que os testes (se houver) estejam passando.
+
+
+
+
+## 👩‍💻 Desenvolvedora
+
+Este projeto foi desenvolvido por:
+
+**Eveliny Muniz**
+
+- [GitHub](https://github.com/Evelinymuniz) 
+- [LinkedIn](https://www.linkedin.com/in/evelinymuniz/) 
+
+
+
+
+## 📄 Licença
+
+Este projeto está licenciado sob a Licença MIT. Consulte o arquivo [LICENSE](LICENSE) para mais detalhes.
